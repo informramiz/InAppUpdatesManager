@@ -1,0 +1,2 @@
+include ':app', ':inappupdatesmanager'
+rootProject.name='SampleApplication'
