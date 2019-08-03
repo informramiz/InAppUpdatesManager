@@ -58,6 +58,13 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${constraint_layout_version}"
     implementation "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_version}"
+    implementation "com.google.android.material:material:${material_design_version}"
+    //Firebase remote config
+    implementation "com.google.firebase:firebase-config:18.0.0"
+    //Play-core library - for in-app updates
+    implementation 'com.google.android.play:core:1.6.1'
+    //timber for easy logging
+    implementation "com.jakewharton.timber:timber:4.7.1"
 }
 
 apply from: 'https://gist.githubusercontent.com/informramiz/95f5baee4a79b101c9d3b4ab90fee378/raw/35f6e5744717d35d235f860ae833157531677d95/bintray.gradle'
