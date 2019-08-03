@@ -1,0 +1,7 @@
+<resources>
+    <!--  InAppUpdates  -->
+    <string name="error_must_update_app_before_using">يجب تحديث التطبيق قبل استخدامه</string>
+    <string name="msg_update_downloaded">تم تنزيل تحديث للتو.</string>
+    <string name="restart">إعادة بدء</string>
+    <string name="msg_downloading_update">تحميل التحديث…</string>
+</resources>

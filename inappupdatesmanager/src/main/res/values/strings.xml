@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">InAppUpdatesManager</string>
+    <string name="app_name" translatable="false">InAppUpdatesManager</string>
+    <!--  InAppUpdates  -->
+    <string name="error_must_update_app_before_using">You must update app before using it</string>
+    <string name="msg_update_downloaded">An update has just been downloaded.</string>
+    <string name="restart">RESTART</string>
+    <string name="msg_downloading_update">Downloading Update…</string>
 </resources>
