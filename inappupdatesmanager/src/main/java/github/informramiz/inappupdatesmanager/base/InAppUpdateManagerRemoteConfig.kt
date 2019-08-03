@@ -17,8 +17,10 @@ internal object InAppUpdateManagerRemoteConfig {
 
     fun doImmediateUpdate(versionCode: Int): Boolean {
         val remoteConfigStr = FirebaseRemoteConfig.getInstance().getString(updateRemoteConfigKey)
-        val remoteConfigInfo = Gson().fromJson<UpdateRemoteConfigInfo>(remoteConfigStr)
 
+        if (remoteConfigStr.isNullOrBlank()) return true
+
+        val remoteConfigInfo = Gson().fromJson<UpdateRemoteConfigInfo>(remoteConfigStr)
         return (versionCode >= remoteConfigInfo.versionCode
                 && remoteConfigInfo.isForceUpdate)
     }
