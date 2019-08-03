@@ -1,16 +1,41 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    bintrayRepo = 'maven'
+    //package name
+    bintrayName = 'InAppUpdatesManager'
+
+    publishedGroupId = 'io.github.informramiz'
+    libraryName = 'InAppUpdatesManager'
+    artifact = 'inappupdatesmanager'
+
+    libraryDescription = 'A simple wrapper around Google Play AppUpdateFactory to make in-app updates seamless.'
+
+    siteUrl = 'https://github.com/informramiz/InAppUpdatesManager'
+    gitUrl = 'https://github.com/informramiz/InAppUpdatesManager.git'
+
+    libraryVersion = versionName
+
+    developerId = 'informramiz'
+    developerName = 'Ramiz Raja'
+    developerEmail = 'informramiz@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.1"
-
 
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode versionCode
+        versionName versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -34,3 +59,6 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+
+apply from: 'https://gist.githubusercontent.com/informramiz/95f5baee4a79b101c9d3b4ab90fee378/raw/35f6e5744717d35d235f860ae833157531677d95/bintray.gradle'
+apply from: 'https://gist.githubusercontent.com/informramiz/f23716a2086b0bf5ba8517d660d43dd6/raw/da6da59834b2cc62d3b944abb8026fba2f55a2b5/install.gradle'
