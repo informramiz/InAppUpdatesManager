@@ -11,7 +11,7 @@ import timber.log.Timber
 /**
  * Created by Ramiz Raja on 2019-05-30.
  */
-internal object InAppUpdateManagerRemoteConfig {
+object InAppUpdateManagerRemoteConfig {
     var updateRemoteConfigKey = "androidAppUpdateConfig"
     var fetchInterval: Long = 6 * 60 * 60 //12 hours
 
