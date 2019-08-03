@@ -53,8 +53,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation "androidx.appcompat:appcompat:${app_compat_version}"
+    implementation "androidx.core:core-ktx:${core_ktx_version}"
+    implementation "androidx.constraintlayout:constraintlayout:${constraint_layout_version}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_version}"
 }
 
 apply from: 'https://gist.githubusercontent.com/informramiz/95f5baee4a79b101c9d3b4ab90fee378/raw/35f6e5744717d35d235f860ae833157531677d95/bintray.gradle'
