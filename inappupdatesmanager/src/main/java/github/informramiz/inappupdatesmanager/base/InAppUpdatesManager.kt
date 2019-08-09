@@ -11,9 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.InstallState
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.InstallStatus
-import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.install.model.*
 import github.informramiz.inappupdatesmanager.R
 
 
@@ -33,7 +31,22 @@ class InAppUpdatesManager(private val activity: Activity,
 
     private val appUpdateManager = AppUpdateManagerFactory.create(activity)
     private val lifecycleOwner = activity as LifecycleOwner
+    @AppUpdateType
+    private var requestedUpdateType: Int = AppUpdateType.IMMEDIATE
+
     private val installStateListener = { installState: InstallState ->
+        if (installState.installErrorCode() != InstallErrorCode.NO_ERROR) {
+            //some error occurred
+            val errorMessage = activity.getString(R.string.error_msg_update_failed, installState.installErrorCode())
+            Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show()
+            handleUpdateFailure(requestedUpdateType)
+        } else {
+            when (installState.installStatus()) {
+                InstallStatus.DOWNLOADED -> {
+                    if (requestedUpdateType == AppUpdateType.FLEXIBLE) showSnackbarToCompleteUpdate()
+                }
+            }
+        }
         when (installState.installStatus()) {
             InstallStatus.DOWNLOADED -> showSnackbarToCompleteUpdate()
         }
@@ -68,12 +81,14 @@ class InAppUpdatesManager(private val activity: Activity,
     }
 
     private fun startFlexibleUpdate(appUpdateInfo: AppUpdateInfo) {
+        requestedUpdateType = AppUpdateType.FLEXIBLE
         appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.FLEXIBLE,
             activity, REQ_CODE_UPDATE_APP_FLEXIBLY
         )
     }
 
     private fun startImmediateUpdate(appUpdateInfo: AppUpdateInfo) {
+        requestedUpdateType = AppUpdateType.IMMEDIATE
         appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.IMMEDIATE,
             activity, REQ_CODE_UPDATE_APP_IMMEDIATELY
         )
@@ -128,6 +143,13 @@ class InAppUpdatesManager(private val activity: Activity,
             handleImmediateUpdateFailure(resultCode)
         } else {
             handleFlexibleUpdateFailure(resultCode)
+        }
+    }
+
+    private fun handleUpdateFailure(@AppUpdateType updateType: Int) {
+        when (updateType) {
+            AppUpdateType.FLEXIBLE -> handleFlexibleUpdateFailure(ActivityResult.RESULT_IN_APP_UPDATE_FAILED)
+            else -> handleImmediateUpdateFailure(ActivityResult.RESULT_IN_APP_UPDATE_FAILED)
         }
     }
 
