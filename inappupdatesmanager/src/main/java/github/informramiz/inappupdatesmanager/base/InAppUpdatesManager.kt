@@ -31,7 +31,6 @@ class InAppUpdatesManager(private val activity: Activity,
 
     private val appUpdateManager = AppUpdateManagerFactory.create(activity)
     private val lifecycleOwner = activity as LifecycleOwner
-    @AppUpdateType
     private var requestedUpdateType: Int = AppUpdateType.IMMEDIATE
 
     private val installStateListener = { installState: InstallState ->
@@ -146,7 +145,7 @@ class InAppUpdatesManager(private val activity: Activity,
         }
     }
 
-    private fun handleUpdateFailure(@AppUpdateType updateType: Int) {
+    private fun handleUpdateFailure(updateType: Int) {
         when (updateType) {
             AppUpdateType.FLEXIBLE -> handleFlexibleUpdateFailure(ActivityResult.RESULT_IN_APP_UPDATE_FAILED)
             else -> handleImmediateUpdateFailure(ActivityResult.RESULT_IN_APP_UPDATE_FAILED)
